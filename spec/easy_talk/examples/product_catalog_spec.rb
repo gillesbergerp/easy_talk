@@ -12,6 +12,7 @@ RSpec.describe 'Product catalog example' do
       end
 
       define_schema do
+        schema_id 'https://example.com/schemas/product.json'
         property :productId, String, format: 'uuid'
         property :name, String
         property :description, String
@@ -96,7 +97,7 @@ RSpec.describe 'Product catalog example' do
       },
       allOf: [
         {
-          '$ref': '#/$defs/BaseProduct'
+          '$ref': 'https://example.com/schemas/product.json'
         }
       ]
     }
@@ -107,6 +108,7 @@ RSpec.describe 'Product catalog example' do
     stub_const('ClothingProduct', clothing_product)
 
     ClothingProduct.define_schema do
+      ref_mode :external
       title 'Clothing Product'
       compose T::AllOf[BaseProduct]
       property :size, String, enum: %w[XS S M L XL XXL]

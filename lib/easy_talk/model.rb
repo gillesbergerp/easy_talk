@@ -151,7 +151,15 @@ module EasyTalk
       #
       # @return [String] The reference template for the model.
       def ref_template
-        "#/$defs/#{name}"
+        ref_mode = EasyTalk.configuration.ref_mode
+        case ref_mode
+        when :local
+          "#/$defs/#{name}"
+        when :external
+          schema_definition.schema[:schema_id] || raise('External references require a schema_id')
+        else
+          raise ArgumentError, "Invalid ref_mode #{ref_mode}"
+        end
       end
 
       # Returns the JSON schema for the model.

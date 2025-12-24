@@ -12,7 +12,7 @@ module EasyTalk
     }.freeze
 
     attr_accessor :default_additional_properties, :nilable_is_optional, :auto_validations, :schema_version, :schema_id,
-                  :use_refs
+                  :use_refs, :ref_mode
 
     def initialize
       @default_additional_properties = false
@@ -21,6 +21,7 @@ module EasyTalk
       @schema_version = :none
       @schema_id = nil
       @use_refs = false
+      @ref_mode = :local
     end
 
     # Returns the URI for the configured schema version, or nil if :none
